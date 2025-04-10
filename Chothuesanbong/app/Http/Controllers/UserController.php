@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest\CreateUserRequest;
+use App\Http\Requests\UserRequest\UpdateUserRequest;
+use App\Responses\APIResponse;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     protected $userService;
 
     public function __construct(UserService $userService)
@@ -17,57 +17,35 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function index()
+//    public function index()
+//    {
+//        //
+//        return json_encode($this->userService->getAllUsers());
+//    }
+
+
+    public function store(CreateUserRequest $createUserRequest)
     {
-        //
-        return json_encode($this->userService->getAllUsers());
+        $data = $createUserRequest->validated();
+        $user = $this->userService->createUser($data);
+        return APIResponse::success($user);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(UpdateUserRequest $updateUserRequest, string $id)
     {
-        //
+        $data = $updateUserRequest->validated();
+        $data["user_id"] = auth()->user()->id;
+        $userUpdate = $this->userService->updateUser($id, $data);
+        return APIResponse::success($userUpdate);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $userCurrent = auth()->user()->id;
+        $role = auth()->user()->is_admin;
+        $accessToken = request()->bearerToken();
+
+        $userId = $this->userService->deleteUser($id, $userCurrent, $role,$accessToken);
+        return APIResponse::success($userId);
     }
 }
