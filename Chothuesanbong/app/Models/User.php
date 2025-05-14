@@ -37,7 +37,6 @@ class User extends Authenticatable implements JWTSubject
         'refresh_token',
         'is_admin',
         "google_id",
-        "status",
         "email_verified_at",
         "created_at",
         "updated_at",

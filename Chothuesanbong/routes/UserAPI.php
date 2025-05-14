@@ -16,14 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(
     ['middleware' => 'auth:api',
-    'prefix' => '/user'],
+        'prefix' => '/user'],
     function () {
-        Route::get('getDetailUser', [\App\Http\Controllers\UserController::class,'getDetailUser']);
-        Route::post('update/{user_id}', [\App\Http\Controllers\UserController::class,'update']);
-        Route::delete('delete/{user_id}', [\App\Http\Controllers\UserController::class,'destroy']);
+        Route::get('getAllUser', [\App\Http\Controllers\UserController::class, 'getAllUser'])->middleware('authen_admin:api');
+        Route::get('getUserByKeyword', [\App\Http\Controllers\UserController::class, 'getUserByKeyword'])->middleware('authen_admin:api');
+        Route::post('update/{user_id}', [\App\Http\Controllers\UserController::class, 'update']);
+        Route::delete('delete/{user_id}', [\App\Http\Controllers\UserController::class, 'destroy']);
     });
 
-Route::post('user/create', [\App\Http\Controllers\UserController::class,'store']);
+Route::post('user/create', [\App\Http\Controllers\UserController::class, 'store']);
 
 
 

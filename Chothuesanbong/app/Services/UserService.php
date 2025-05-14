@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\ErrorCode;
 use App\Exceptions\AppException;
+use App\Http\Resources\UserResource;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,10 +23,22 @@ class UserService
         $this->imageService = $imageService;
     }
 
+    public function getAllUser($perPage)
+    {
+        $user = $this->userRepository->getAllUser($perPage);
+        return UserResource::collection($user);
+    }
+
+    public function getUserByKeyword($keyword, $perPage)
+    {
+        $user = $this->userRepository->getUserByKeyword($keyword, $perPage);
+        return UserResource::collection($user);
+    }
+
     public function createUser(array $data)
     {
-        if(isset($data["avatar"]) && $data["avatar"] != null) {
-            $data["avatar"] = $this->imageService->saveImageInDisk($data["avatar"],"user");
+        if (isset($data["avatar"]) && $data["avatar"] != null) {
+            $data["avatar"] = $this->imageService->saveImageInDisk($data["avatar"], "user");
         }
 
         $user = $this->userRepository->create($data);
@@ -55,9 +68,9 @@ class UserService
             $existingUser->phone_number = $data['phone_number'];
         }
 
-        if(isset($data["avatar"]) && $data["avatar"] != null) {
+        if (isset($data["avatar"]) && $data["avatar"] != null) {
             $this->imageService->deleteImageInDisk($existingUser->avatar);
-            $data["avatar"] = $this->imageService->saveImageInDisk($data["avatar"],"user");
+            $data["avatar"] = $this->imageService->saveImageInDisk($data["avatar"], "user");
         }
 
         // Save the updated user

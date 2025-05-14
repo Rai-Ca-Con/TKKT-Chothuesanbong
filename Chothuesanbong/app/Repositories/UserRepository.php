@@ -1,13 +1,17 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\User;
 
 class UserRepository
 {
-    public function getAll()
+    public function getAllUser($perPage)
     {
-        return User::all();
+        return User::where('is_admin', 0)
+            ->whereNull('deleted_at')
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
     }
 
     public function findById($id)
@@ -20,9 +24,16 @@ class UserRepository
         return User::where('google_id', $id)->first();
     }
 
-    public function findByEmail($email)
+    public function getUserByKeyword($keyword, $perPage)
     {
-        return User::where('email', $email)->first();
+        return User::where('is_admin', 0)
+            ->whereNull('deleted_at')
+            ->where(function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%')
+                    ->orWhere('email', 'like', '%' . $keyword . '%');
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
     }
 
     public function create(array $data)

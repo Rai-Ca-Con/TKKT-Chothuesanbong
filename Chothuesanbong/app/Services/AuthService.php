@@ -42,7 +42,7 @@ class AuthService
     }
 
 
-    // lay thong tin chji tiet user thong qua token
+    // lay thong tin chi tiet user thong qua token
     public function profile()
     {
         try {

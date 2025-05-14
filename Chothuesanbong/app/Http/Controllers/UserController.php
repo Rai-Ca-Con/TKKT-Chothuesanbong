@@ -17,12 +17,19 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-//    public function index()
-//    {
-//        //
-//        return json_encode($this->userService->getAllUsers());
-//    }
+    public function getAllUser(Request $request)
+    {
+        $perPage = $request->get('per_page', 10); // Mặc định mỗi trang 10 ban ghi
+        return APIResponse::paginated($this->userService->getAllUser($perPage));
+    }
 
+    //loc user theo keyword tren cac truong email hoac name
+    public function getUserByKeyword(Request $request)
+    {
+        $keyword = $request->query('keyword', ''); // lấy từ query string ?keyword=
+        $perPage = $request->get('per_page', 10); // Mặc định mỗi trang 10 ban ghi
+        return APIResponse::paginated($this->userService->getUserByKeyword($keyword, $perPage));
+    }
 
     public function store(CreateUserRequest $createUserRequest)
     {
@@ -45,7 +52,7 @@ class UserController extends Controller
         $role = auth()->user()->is_admin;
         $accessToken = request()->bearerToken();
 
-        $userId = $this->userService->deleteUser($id, $userCurrent, $role,$accessToken);
+        $userId = $this->userService->deleteUser($id, $userCurrent, $role, $accessToken);
         return APIResponse::success($userId);
     }
 }

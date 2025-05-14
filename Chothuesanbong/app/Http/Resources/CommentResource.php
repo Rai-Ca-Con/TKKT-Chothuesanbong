@@ -13,6 +13,7 @@ class CommentResource extends JsonResource
             'id' => $this->id,
             'fieldId' => $this->field_id,
             'content' => $this->content,
+            'parent_id' => $this->parent_id,
             'user' => new UserResource($this->whenLoaded('user')),
             'child' => CommentResource::collection($this->whenLoaded('children')),
             'image_url' => $this->image_url,
