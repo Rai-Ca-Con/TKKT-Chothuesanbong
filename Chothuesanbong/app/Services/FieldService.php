@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Enums\ErrorCode;
 use App\Exceptions\AppException;
 use App\Repositories\FieldRepository;
+use App\Services\FactoryService\Notification\NotificationFactory;
+use App\Services\FactoryService\Notification\TelegramNotificationFactory;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use GuzzleHttp\Client;
@@ -13,6 +15,7 @@ class FieldService
 {
     protected $repository;
     protected $imageService;
+    protected NotificationFactory $notificationFactory;
 
     public function __construct(FieldRepository $repository, ImageService $imageService)
     {
@@ -66,7 +69,14 @@ class FieldService
             $this->imageService->deleteByFieldId($id);
             $this->imageService->uploadImage($imageRequest, $field->id);
         }
-        return $field->load(['category', 'state', 'images']);
+        $fieldUpdate = $field->load(['category', 'state', 'images']);
+
+        //notify khi update thong tin san
+        $this->notificationFactory = new TelegramNotificationFactory();
+        $teleNotify = $this->notificationFactory->createNotification();
+        $teleNotify->send($fieldUpdate, "cập nhật sân bóng !");
+
+        return $fieldUpdate;
     }
 
     public function delete($id)
