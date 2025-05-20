@@ -78,7 +78,7 @@ class CommentService
 
 //        chi user da dat san do thi moi comment duoc
         $userBookedField = $this->bookingRepository->findByUserAndField($user->id, $field->id);
-        if (!($userBookedField > 0)) {
+        if (!($userBookedField > 0) && $user->is_admin == 0) {
             throw new AppException(ErrorCode::UNAUTHORIZED_ACTION);
         }
 
