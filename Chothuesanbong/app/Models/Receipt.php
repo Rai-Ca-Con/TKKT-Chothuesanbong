@@ -12,6 +12,7 @@ class Receipt extends Model
         'booking_id',
         'date',
         'total_price',
+        'deposit_price',
         'status',
         'expired_at'
     ];

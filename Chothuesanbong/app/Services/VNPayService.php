@@ -66,7 +66,7 @@ class VNPayService
             return ['RspCode' => '02', 'Message' => 'Receipt already paid'];
         }
 
-        if ((int)$receipt->total_price !== (int)$amount) {
+        if ((int)$receipt->deposit_price !== (int)$amount) {
             return ['RspCode' => '04', 'Message' => 'Amount mismatch'];
         }
 
@@ -105,7 +105,7 @@ class VNPayService
         $inputData = [
             "vnp_Version" => "2.1.0",
             "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => (int)($receipt->total_price * 100),
+            "vnp_Amount" => (int)($receipt->deposit_price * 100),
             "vnp_Command" => "pay",
             "vnp_CreateDate" => now()->format('YmdHis'),
             "vnp_CurrCode" => "VND",

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\BookingSchedule;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class BookingRepository
@@ -36,6 +37,15 @@ class BookingRepository
     {
         return $this->model->with(['field', 'receipt'])
             ->where('user_id', $userId)
+            ->get();
+    }
+
+    public function findByUserAndDate($userId, $date)
+    {
+        return $this->model->with(['field'])
+            ->where('user_id', $userId)
+            ->whereDate('date_start', '<=', $date)
+            ->whereDate('date_end', '>=', $date)
             ->get();
     }
 
@@ -100,6 +110,46 @@ class BookingRepository
 
         // Sắp xếp theo total_bookings giảm dần và trả về
         return $grouped->sortByDesc('total_bookings')->values();
+    }
+
+    // Version lấy những giờ đã được đặt trong ngày (bản cũ)
+    public function getBookingsByFieldAndDate($fieldId, $date)
+    {
+        return $this->model
+            ->where('field_id', $fieldId)
+            ->whereDate('date_start', $date)
+            ->whereHas('receipt', function ($query) {
+                $query->where('status', 'paid');
+            })
+            ->get();
+//            ->get(['date_start', 'date_end']);
+
+    }
+    // Version lấy những giờ đã được đặt trong tuần (bản mới)
+    public function getBookingsByWeek(Carbon $startOfWeek, Carbon $endOfWeek, $fieldId = null)
+    {
+        $query = $this->model
+            ->whereBetween('date_start', [$startOfWeek, $endOfWeek])
+            ->with('field:id,name') // assuming you have a relation bookingSchedule->field
+            ->select('id', 'field_id', 'date_start', 'date_end');
+
+        if ($fieldId) {
+            $query->where('field_id', $fieldId);
+        }
+
+        return $query->get();
+    }
+
+
+
+    public function existsBookingForFieldAndTimeSlot($fieldId, $date, $timeSlotStart)
+    {
+        return $this->model
+            ->where('field_id', $fieldId)
+            ->whereDate('date_start', $date)
+            ->whereTime('date_start', '<=', $timeSlotStart)
+            ->whereTime('date_end', '>', $timeSlotStart)
+            ->exists();
     }
 
     public function findByUserAndField($userId, $fieldId)

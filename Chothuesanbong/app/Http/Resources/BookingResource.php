@@ -21,6 +21,7 @@ class BookingResource extends JsonResource
             'receipt' => $this->whenLoaded('receipt', function () {
                 return [
                     'total_price' => $this->receipt->total_price,
+                    'deposit_price' => $this->receipt->deposit_price,
                     'status'      => $this->receipt->status,
                     'payment_url' => $this->receipt->payment_url,
                     'expired_at'  => $this->receipt->expired_at,

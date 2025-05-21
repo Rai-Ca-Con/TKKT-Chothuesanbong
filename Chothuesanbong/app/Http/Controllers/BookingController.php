@@ -65,6 +65,29 @@ class BookingController extends Controller
         return APIResponse::success(BookingResource::collection($bookings));
     }
 
+    public function getBookedTimeSlots(Request $request, $fieldId)
+    {
+        $date = $request->query('date');
+        $slots = $this->bookingService->getBookedTimeSlots($fieldId, $date);
+
+//        return response()->json($slots);
+        return APIResponse::success(BookingResource::collection($slots));
+    }
+
+    public function getWeeklyBookings(Request $request)
+    {
+        $date = $request->query('date'); // bắt buộc
+        $fieldId = $request->query('field_id'); // optional nếu muốn lọc theo sân
+
+        if (!$date) {
+            return response()->json(['error' => 'Missing date'], 400);
+        }
+
+        $data = $this->bookingService->getWeeklyBookings($date, $fieldId);
+
+        return response()->json($data);
+    }
+
 
 
 

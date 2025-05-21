@@ -1,29 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="803e2141-ee6c-4815-9a18-408aa138f923" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Console/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Exceptions/Handler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Providers/RouteServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Repositories/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Repositories/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Services/UserService.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Services/UserService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/config/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/config/cors.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/config/cors.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/config/logging.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/config/logging.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/config/mail.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/config/mail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/config/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/config/services.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/database/migrations/2019_12_14_000001_create_personal_access_tokens_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/database/migrations/2019_12_14_000001_create_personal_access_tokens_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/routes/UserAPI.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/routes/UserAPI.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chothuesanbong/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Http/Controllers/BookingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Http/Controllers/BookingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Http/Resources/BookingResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Http/Resources/BookingResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Models/Receipt.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Models/Receipt.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Repositories/BookingRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Repositories/BookingRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Services/BookingService.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Services/BookingService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Services/VNPayService.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Services/VNPayService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,18 +25,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Rai-Ca-Con"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Rai-Ca-Con&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Rai-Ca-Con/TKKT-Chothuesanbong.git",
-    "accountId": "9d58865a-331b-4a0f-8fd7-cbacf19cbdb3"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Rai-Ca-Con/TKKT-Chothuesanbong.git&quot;,
+    &quot;accountId&quot;: &quot;9d58865a-331b-4a0f-8fd7-cbacf19cbdb3&quot;
   }
-}]]></component>
+}</component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/Chothuesanbong/vendor/league/flysystem-local" />
@@ -177,9 +165,9 @@
       <path value="$PROJECT_DIR$/Chothuesanbong/vendor/symfony/http-foundation" />
     </include_path>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2wxUEQQX9FkzRgETtXr8GUG2pXe" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -192,6 +180,10 @@
     "git-widget-placeholder": "atus__dev",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "F:/TKKT-Chothuesanbong/Chothuesanbong",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -219,6 +211,7 @@
       <option name="presentableId" value="Default" />
       <updated>1746982606309</updated>
       <workItem from="1746982607407" duration="16000" />
+      <workItem from="1747849678039" duration="606000" />
     </task>
     <servers />
   </component>
