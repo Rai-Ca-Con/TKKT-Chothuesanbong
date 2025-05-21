@@ -16,5 +16,12 @@ class ReceiptController extends Controller
         $this->receiptService = $receiptService;
     }
 
+    public function confirmFullPayment(string $id)
+    {
+        $this->receiptService->confirmFullPayment($id);
+
+        return response()->json(['message' => 'Đã xác nhận thanh toán đủ thành công']);
+    }
+
 
 }

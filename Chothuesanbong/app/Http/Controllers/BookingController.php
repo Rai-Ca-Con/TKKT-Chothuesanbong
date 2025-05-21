@@ -88,9 +88,14 @@ class BookingController extends Controller
         return response()->json($data);
     }
 
+    public function getBookingWithReceipt(Request $request)
+    {
+        $data = $request->only(['field_id', 'date', 'start_time', 'end_time']);
 
+        $booking = $this->bookingService->getBookingWithReceipt($data);
 
-
+        return APIResponse::success(new BookingResource($booking));
+    }
 
     // Callback của VNPay (IPN)
     public function handleBookingPayment(Request $request)

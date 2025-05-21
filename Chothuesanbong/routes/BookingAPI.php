@@ -13,14 +13,20 @@ Route::group([
     Route::get('/user/today', [BookingController::class, 'userBookingsToday']); // Lịch sử đặt sân trong ngày (chat option)
 });
 
+Route::group([
+    'middleware' => ['auth:api', 'authen_admin:api'],
+    'prefix' => '/bookings'
+], function () {
+    Route::get('/detail', [BookingController::class, 'getBookingWithReceipt']);
+});
+
 Route::get('/vnpay/callback', [BookingController::class, 'handleBookingPayment']);
-//Route::match(['get', 'post'], '/vnpay/callback', [BookingController::class, 'handleBookingPayment']);
-
-Route::get('/statistics', [BookingController::class, 'statsUntilDate']);
-Route::get('/statistics/active-users', [BookingController::class, 'mostActiveUsers']);
-
-
 Route::get('/booked-time-slots/{fieldId}', [BookingController::class, 'getBookedTimeSlots']);
 Route::get('/bookings/weekly', [BookingController::class, 'getWeeklyBookings']);
+
+
+//Route::match(['get', 'post'], '/vnpay/callback', [BookingController::class, 'handleBookingPayment']);
+//Route::get('/statistics', [BookingController::class, 'statsUntilDate']);
+//Route::get('/statistics/active-users', [BookingController::class, 'mostActiveUsers']);
 
 

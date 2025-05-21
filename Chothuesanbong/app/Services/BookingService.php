@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Http\Resources\BookingResource;
-use App\Models\BookingSchedule;
 use App\Repositories\BookingRepository;
 use App\Repositories\FieldRepository;
 use App\Repositories\FieldTimeSlotOverrideRepository;
@@ -38,15 +37,6 @@ class BookingService
     public function isAvailable($fieldId, $dateStart, $dateEnd): bool
     {
         return $this->bookingRepository->findByFieldAndDate($fieldId, $dateStart, $dateEnd)->isEmpty();
-    }
-
-    public function getsByUserToday($userId) {
-        $bookings = $this->bookingRepository->findByUserAndDate($userId, date('Y-m-d'));
-        $receipts = [];
-        foreach ($bookings as $booking) {
-            $receipts[] = $this->receiptRepository->findByBookingId($booking->id);
-        }
-
     }
 
     public function create(array $data)
@@ -227,5 +217,14 @@ class BookingService
             'end_of_week' => $endOfWeek->toDateString(),
             'bookings' => $bookings,
         ];
+    }
+
+    public function getBookingWithReceipt(array $data)
+    {
+        $startDateTime = Carbon::parse($data['date'] . ' ' . $data['start_time']);
+        $endDateTime = Carbon::parse($data['date'] . ' ' . $data['end_time']);
+
+        return $this->bookingRepository
+            ->findByFieldAndTime($data['field_id'], $startDateTime, $endDateTime);
     }
 }

@@ -5,8 +5,9 @@ namespace App\Services;
 use App\Enums\ErrorCode;
 use App\Exceptions\AppException;
 use App\Repositories\FieldRepository;
-use App\Services\FactoryService\Notification\NotificationFactory;
-use App\Services\FactoryService\Notification\TelegramNotificationFactory;
+use App\Repositories\FieldTimeSlotRepository;
+use App\Repositories\TimeSlotRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use GuzzleHttp\Client;
@@ -15,12 +16,16 @@ class FieldService
 {
     protected $repository;
     protected $imageService;
-    protected NotificationFactory $notificationFactory;
 
-    public function __construct(FieldRepository $repository, ImageService $imageService)
+    protected $fieldTimeSlotRepository;
+    protected $timeSlotRepository;
+
+    public function __construct(FieldRepository $repository, ImageService $imageService, FieldTimeSlotRepository $fieldTimeSlotRepository, TimeSlotRepository $timeSlotRepository)
     {
         $this->repository = $repository;
         $this->imageService = $imageService;
+        $this->fieldTimeSlotRepository = $fieldTimeSlotRepository;
+        $this->timeSlotRepository = $timeSlotRepository;
     }
 
     public function getAll()
@@ -56,9 +61,53 @@ class FieldService
             $this->imageService->uploadImage($imageRequest, $field->id);
         }
 
+        $basePrice = $data['price'] ?? 100000;
+        $timeSlots = $this->timeSlotRepository->getAll();
+
+        foreach ($timeSlots as $slot) {
+            $startHour = Carbon::parse($slot->start_time)->hour;
+
+            $multiplier = match (true) {
+                $startHour >= 6 && $startHour < 12 => 1,
+                $startHour >= 12 && $startHour < 18 => 1.2,
+                $startHour >= 18 && $startHour < 24 => 1.5,
+                default => 1,
+            };
+
+            $customPrice = $basePrice * $multiplier;
+
+            $this->fieldTimeSlotRepository->createWithPrice(
+                $field->id,
+                $slot->id,
+                $customPrice
+            );
+        }
+
+
         $field->load(['category', 'state', 'images']);
 
         return $field;
+    }
+
+    protected function updatePriceInFieldTimeSlot($fieldId, $price)
+    {
+        $fieldTimeSlots = $this->fieldTimeSlotRepository->findByFieldId($fieldId);
+
+        $fieldTimeSlots->each(function ($slot) use ($price) {
+            $hour = $this->timeSlotRepository->find($slot->time_slot_id)->start_time ?? null;
+
+            if (!$hour) return;
+
+            if ($hour >= '06:00:00' && $hour < '12:00:00') {
+                $slot->custom_price = 1.0 * $price; // sáng
+            } elseif ($hour >= '12:00:00' && $hour < '18:00:00') {
+                $slot->custom_price = 1.2 * $price; // chiều
+            } else {
+                $slot->custom_price = 1.5 * $price; // tối
+            }
+
+            $slot->save();
+        });
     }
 
     public function update($id, array $data, $imageRequest = null)
@@ -69,14 +118,9 @@ class FieldService
             $this->imageService->deleteByFieldId($id);
             $this->imageService->uploadImage($imageRequest, $field->id);
         }
-        $fieldUpdate = $field->load(['category', 'state', 'images']);
 
-        //notify khi update thong tin san
-        $this->notificationFactory = new TelegramNotificationFactory();
-        $teleNotify = $this->notificationFactory->createNotification();
-        $teleNotify->send($fieldUpdate, "cập nhật sân bóng !");
-
-        return $fieldUpdate;
+        $this->updatePriceInFieldTimeSlot($id, $data['price']);
+        return $field->load(['category', 'state', 'images']);
     }
 
     public function delete($id)

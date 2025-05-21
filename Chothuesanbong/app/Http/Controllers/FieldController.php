@@ -71,7 +71,6 @@ class FieldController extends Controller
     {
         $data = $request->validated();
         $this->fieldService->findById($id);
-//        $data = $request->all();
         $field = $this->fieldService->update($id, $data, $request);
 
         return APIResponse::success(new FieldResource($field));

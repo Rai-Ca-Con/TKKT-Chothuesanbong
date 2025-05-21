@@ -40,15 +40,6 @@ class BookingRepository
             ->get();
     }
 
-    public function findByUserAndDate($userId, $date)
-    {
-        return $this->model->with(['field'])
-            ->where('user_id', $userId)
-            ->whereDate('date_start', '<=', $date)
-            ->whereDate('date_end', '>=', $date)
-            ->get();
-    }
-
     public function findByFieldAndDate($fieldId, $dateStart, $dateEnd)
     {
         return $this->model->where('field_id', $fieldId)
@@ -150,6 +141,15 @@ class BookingRepository
             ->whereTime('date_start', '<=', $timeSlotStart)
             ->whereTime('date_end', '>', $timeSlotStart)
             ->exists();
+    }
+
+    public function findByFieldAndTime($fieldId, $startDateTime, $endDateTime)
+    {
+        return BookingSchedule::with(['receipt', 'field'])
+            ->where('field_id', $fieldId)
+            ->where('date_start', $startDateTime)
+            ->where('date_end', $endDateTime)
+            ->first();
     }
 
     public function findByUserAndField($userId, $fieldId)

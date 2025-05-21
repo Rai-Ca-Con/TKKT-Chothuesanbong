@@ -7,7 +7,8 @@ Route::group([
     'middleware' => ['auth:api', 'authen_admin:api'],
     'prefix' => '/receipts'
 ], function () {
-    Route::get('revenue-by-field', [ReceiptController::class, 'revenueByField']);
+//    Route::get('revenue-by-field', [ReceiptController::class, 'revenueByField']);
+    Route::post('/confirm-full-payment/{id}', [ReceiptController::class, 'confirmFullPayment']);
 });
 
 

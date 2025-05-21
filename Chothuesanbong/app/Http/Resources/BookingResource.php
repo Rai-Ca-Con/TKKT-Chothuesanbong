@@ -20,8 +20,10 @@ class BookingResource extends JsonResource
             'field'      => new FieldResource($this->whenLoaded('field')),
             'receipt' => $this->whenLoaded('receipt', function () {
                 return [
+                    'id' => $this->receipt->id,
                     'total_price' => $this->receipt->total_price,
                     'deposit_price' => $this->receipt->deposit_price,
+                    'is_fully_paid' => $this->receipt->is_fully_paid,
                     'status'      => $this->receipt->status,
                     'payment_url' => $this->receipt->payment_url,
                     'expired_at'  => $this->receipt->expired_at,

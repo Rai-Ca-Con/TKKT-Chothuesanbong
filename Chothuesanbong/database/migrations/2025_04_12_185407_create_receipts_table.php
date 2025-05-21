@@ -18,6 +18,7 @@ return new class extends Migration
             $table->dateTime('date'); // Ngày tạo hóa đơn
             $table->double('total_price', 10, 2);
             $table->double('deposit_price', 10, 2);
+            $table->boolean('is_fully_paid')->default(false);
             $table->enum('status', ['pending', 'paid', 'cancelled', 'expired'])->default('pending'); // Trạng thái hóa đơn
             $table->text('payment_url')->nullable();
             $table->dateTime('expired_at')->nullable();
