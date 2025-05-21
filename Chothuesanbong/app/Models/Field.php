@@ -56,4 +56,9 @@ class Field extends Model
     {
         return $this->hasMany(Image::class, 'field_id', 'id');
     }
+
+    public function fieldTimeSlots()
+    {
+        return $this->hasMany(FieldTimeSlot::class);
+    }
 }
