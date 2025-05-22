@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\FieldTimeSlotOverride;
+use Carbon\Carbon;
 
 class FieldTimeSlotOverrideRepository
 {
@@ -22,6 +23,27 @@ class FieldTimeSlotOverrideRepository
             ->where('time_slot_id', $timeSlotId)
             ->where('date', $date)
             ->first();
+    }
+
+    public function getInactiveOverridesByWeek($fieldId, $startDate, $endDate)
+    {
+        return $this->model
+            ->with('timeSlot')
+            ->where('field_id', $fieldId)
+            ->whereBetween('date', [$startDate, $endDate])
+            ->where('status', 'inactive')
+            ->get();
+    }
+
+    public function getOverridesForFieldInWeek($fieldId, $startDate, $endDate)
+    {
+        return $this->model
+            ->where('field_id', $fieldId)
+            ->whereBetween('date', [$startDate, $endDate])
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->date . '_' . $item->time_slot_id;
+            });
     }
 
     /**

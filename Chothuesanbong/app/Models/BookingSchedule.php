@@ -46,4 +46,6 @@ class BookingSchedule extends Model
     {
         return $this->hasOne(Receipt::class, 'booking_id');
     }
+
+
 }

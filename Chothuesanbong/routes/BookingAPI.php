@@ -23,6 +23,7 @@ Route::group([
 Route::get('/vnpay/callback', [BookingController::class, 'handleBookingPayment']);
 Route::get('/booked-time-slots/{fieldId}', [BookingController::class, 'getBookedTimeSlots']);
 Route::get('/bookings/weekly', [BookingController::class, 'getWeeklyBookings']);
+Route::get('/weekly-pricing/{field_id}', [BookingController::class, 'getWeeklyPricing']);
 
 
 //Route::match(['get', 'post'], '/vnpay/callback', [BookingController::class, 'handleBookingPayment']);

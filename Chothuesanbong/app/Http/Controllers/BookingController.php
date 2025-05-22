@@ -104,4 +104,16 @@ class BookingController extends Controller
         $result = $this->vnPayService->handleCallback($request->all());
         return response()->json($request->all());
     }
+
+    public function getWeeklyPricing(Request $request, $fieldId)
+    {
+        $selectedDate = $request->query('selected_date');
+
+        if (!$fieldId || !$selectedDate) {
+            return response()->json(['message' => 'Thiếu field_id hoặc selected_date'], 422);
+        }
+
+        $pricing = $this->bookingService->getWeeklyFieldStatus($fieldId, $selectedDate);
+        return response()->json($pricing);
+    }
 }

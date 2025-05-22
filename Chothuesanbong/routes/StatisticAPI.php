@@ -19,7 +19,8 @@ Route::group([
     'middleware' => ['auth:api', 'authen_admin:api'],
     'prefix' => '/statistics'
 ], function () {
-    Route::get('/revenue-by-field', [StatisticsController::class, 'revenueByField']);        // Tạo sân mới
-    Route::get('/revenue-until-date', [StatisticsController::class, 'statsUntilDate']);     // Cập nhật sân
-    Route::get('/top-users', [StatisticsController::class, 'mostActiveUsers']); // Xóa sân
+    Route::get('/revenue-by-field', [StatisticsController::class, 'revenueByField']);
+    Route::get('/revenue-until-date', [StatisticsController::class, 'statsUntilDate']);
+    Route::get('/top-users', [StatisticsController::class, 'mostActiveUsers']);
+    Route::get('/revenue-report', [StatisticsController::class, 'revenueReport']);
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookingResource;
 use App\Http\Resources\ReceiptResource;
 use App\Responses\APIResponse;
 use Illuminate\Http\Request;
@@ -57,5 +58,27 @@ class StatisticsController extends Controller
 
 //        return response()->json($revenues);
 //        return APIResponse::success(FieldResource::collection($this->fieldService->paginate($perPage)));
+    }
+
+    public function revenueReport(Request $request)
+    {
+        $data = $request->only([
+            'field_id',
+            'start_date',
+            'end_date',
+            'start_time',
+            'end_time',
+        ]);
+
+        if (!$data['field_id']) {
+            return response()->json(['message' => 'Thiếu field_id'], 422);
+        }
+
+        $report = $this->statisticsService->getRevenueAndBookings($data);
+
+        return response()->json([
+            'total_revenue' => $report['total_revenue'],
+            'bookings' => BookingResource::collection($report['bookings']),
+        ]);
     }
 }

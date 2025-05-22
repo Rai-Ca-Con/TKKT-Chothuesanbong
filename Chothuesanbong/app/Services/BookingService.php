@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use App\Exceptions\AppException;
 use App\Enums\ErrorCode;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class BookingService
 {
@@ -176,25 +177,6 @@ class BookingService
         return $this->bookingRepository->delete($id);
     }
 
-//    public function getBookedTimeSlots($fieldId, $date)
-//    {
-//        $bookings = $this->bookingRepository->getBookingsByFieldAndDate($fieldId, $date);
-//
-//        $timeSlots = [];
-//
-//        foreach ($bookings as $booking) {
-//            $start = strtotime($booking->date_start);
-//            $end = strtotime($booking->date_end);
-//
-//            while ($start < $end) {
-//                $timeSlots[] = date('H:i', $start);
-//                $start = strtotime('+1 hour', $start);
-//            }
-//        }
-//
-//        return array_unique($timeSlots);
-//    }
-
     public function getBookedTimeSlots($fieldId, $date)
     {
         return $this->bookingRepository->getBookingsByFieldAndDate($fieldId, $date);
@@ -212,12 +194,27 @@ class BookingService
 
         $bookings = $this->bookingRepository->getBookingsByWeek($startOfWeek, $endOfWeek, $fieldId);
 
+        // Lấy các khung giờ bị inactive trong tuần
+        $inactiveOverrides = $this->fieldTimeSlotOverrideRepository
+            ->getInactiveOverridesByWeek($fieldId, $startOfWeek->toDateString(), $endOfWeek->toDateString());
+
         return [
-            'start_of_week' => $startOfWeek->toDateString(),
-            'end_of_week' => $endOfWeek->toDateString(),
-            'bookings' => $bookings,
+            'start_of_week'   => $startOfWeek->toDateString(),
+            'end_of_week'     => $endOfWeek->toDateString(),
+            'bookings'        => $bookings,
+            'inactive_slots'  => $inactiveOverrides->map(function ($override) {
+                return [
+                    'date'         => $override->date,
+                    'time_slot_id' => $override->time_slot_id,
+                    'start_time'   => $override->timeSlot->start_time,
+                    'end_time'     => $override->timeSlot->end_time,
+                    'status'       => $override->status,
+                ];
+            }),
         ];
     }
+
+
 
     public function getBookingWithReceipt(array $data)
     {
@@ -226,5 +223,87 @@ class BookingService
 
         return $this->bookingRepository
             ->findByFieldAndTime($data['field_id'], $startDateTime, $endDateTime);
+    }
+
+
+
+    public function getWeeklyFieldStatus(string $fieldId, string $selectedDate)
+    {
+        $selected = Carbon::parse($selectedDate);
+        $startOfWeek = $selected->copy()->startOfWeek(Carbon::MONDAY);
+        $endOfWeek = $selected->copy()->endOfWeek(Carbon::SUNDAY);
+
+        // Lấy override trong tuần
+        $overrides = $this->fieldTimeSlotOverrideRepository
+            ->getOverridesForFieldInWeek($fieldId, $startOfWeek->toDateString(), $endOfWeek->toDateString());
+
+        // Lấy slot mặc định
+        $defaultSlots = $this->fieldTimeSlotRepository
+            ->getActiveSlotsByField($fieldId);
+
+        // Lấy các booking
+        $bookings = $this->bookingRepository
+            ->getBookingsByWeek($startOfWeek, $endOfWeek, $fieldId);
+
+        // Tạo map các slot đã được book
+        $bookedSlotMap = [];
+
+        foreach ($bookings as $booking) {
+            $bookingDate = Carbon::parse($booking->date_start)->toDateString();
+            $startTime = Carbon::parse($booking->date_start)->format('H:i:s');
+            $endTime = Carbon::parse($booking->date_end)->format('H:i:s');
+
+            foreach ($defaultSlots as $slotId => $slot) {
+                if (
+                    $slot->timeSlot->start_time === $startTime &&
+                    $slot->timeSlot->end_time === $endTime
+                ) {
+                    $key = $bookingDate . '_' . $slotId;
+                    $bookedSlotMap[$key] = true;
+                }
+            }
+        }
+
+        // Xây kết quả
+        $result = [
+            'start_of_week' => $startOfWeek->toDateString(),
+            'end_of_week' => $endOfWeek->toDateString(),
+            'days' => []
+        ];
+
+        foreach (CarbonPeriod::create($startOfWeek, $endOfWeek) as $date) {
+            $dayKey = $date->toDateString();
+            $result['days'][$dayKey] = [];
+
+            foreach ($defaultSlots as $slotId => $defaultSlot) {
+                $overrideKey = $dayKey . '_' . $slotId;
+                $isBooked = isset($bookedSlotMap[$overrideKey]);
+
+                if (isset($overrides[$overrideKey])) {
+                    $override = $overrides[$overrideKey]->first();
+                    $result['days'][$dayKey][] = [
+                        'time_slot_id' => $slotId,
+                        'start_time'   => $defaultSlot->timeSlot->start_time,
+                        'end_time'     => $defaultSlot->timeSlot->end_time,
+                        'price'        => $override->custom_price,
+                        'status'       => $override->status,
+                        'is_override'  => true,
+                        'booked'       => $isBooked,
+                    ];
+                } else {
+                    $result['days'][$dayKey][] = [
+                        'time_slot_id' => $slotId,
+                        'start_time'   => $defaultSlot->timeSlot->start_time,
+                        'end_time'     => $defaultSlot->timeSlot->end_time,
+                        'price'        => $defaultSlot->custom_price,
+                        'status'       => $defaultSlot->status,
+                        'is_override'  => false,
+                        'booked'       => $isBooked,
+                    ];
+                }
+            }
+        }
+
+        return $result;
     }
 }

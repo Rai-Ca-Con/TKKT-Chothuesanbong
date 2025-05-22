@@ -28,4 +28,16 @@ class StatisticsService
     {
         return $this->bookingRepository->getMostActiveUsers();
     }
+
+    public function getRevenueAndBookings(array $filters)
+    {
+        $bookings = $this->bookingRepository->getBookingsWithReceiptsFiltered($filters);
+
+        $totalRevenue = $bookings->sum(fn($booking) => $booking->receipt->total_price);
+
+        return [
+            'total_revenue' => $totalRevenue,
+            'bookings' => $bookings,
+        ];
+    }
 }

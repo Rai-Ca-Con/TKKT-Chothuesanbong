@@ -53,4 +53,14 @@ class FieldTimeSlotRepository
             'custom_price' => $customPrice,
         ]);
     }
+
+    public function getActiveSlotsByField($fieldId)
+    {
+        return $this->model
+            ->with('timeSlot')
+            ->where('field_id', $fieldId)
+            ->where('status', 'active')
+            ->get()
+            ->keyBy('time_slot_id');
+    }
 }
