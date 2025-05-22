@@ -16,7 +16,15 @@ class BookingResource extends JsonResource
     {
         return [
             'id'         => $this->id,
-            'user_id'    => $this->user_id,
+            'user'       => $this->whenLoaded('user', function () {
+                return [
+                    'id'           => $this->user->id,
+                    'name'         => $this->user->name,
+                    'email'        => $this->user->email,
+                    'phone_number' => $this->user->phone_number,
+                    'address'      => $this->user->address,
+                ];
+            }),
             'field'      => new FieldResource($this->whenLoaded('field')),
             'receipt' => $this->whenLoaded('receipt', function () {
                 return [

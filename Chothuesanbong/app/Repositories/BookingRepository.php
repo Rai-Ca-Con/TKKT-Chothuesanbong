@@ -161,7 +161,7 @@ class BookingRepository
             ->join('receipts', 'booking_schedule.id', '=', 'receipts.booking_id')
             ->where('receipts.status', 'paid')
             ->select('booking_schedule.*') // đảm bảo không lấy nhầm cột receipts.*
-            ->with(['field', 'receipt']);
+            ->with(['field', 'receipt', 'user']);
 
         if (!empty($filters['field_id'])) {
             $query->where('booking_schedule.field_id', $filters['field_id']);
