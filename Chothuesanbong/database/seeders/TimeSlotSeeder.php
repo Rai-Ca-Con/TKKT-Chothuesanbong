@@ -15,7 +15,7 @@ class TimeSlotSeeder extends Seeder
     public function run()
     {
         $startHour = 6;
-        $endHour = 24;
+        $endHour = 22;
 
         for ($hour = $startHour; $hour < $endHour; $hour += 2) {
             $start = str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00';

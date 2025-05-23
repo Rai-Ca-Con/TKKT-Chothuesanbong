@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="803e2141-ee6c-4815-9a18-408aa138f923" name="Changes" comment="v2.3: Lấy giá sân theo từng khung giờ trong tuần, thống kê một sân (lấy ra hoá đơn)" />
+    <list default="true" id="803e2141-ee6c-4815-9a18-408aa138f923" name="Changes" comment="v2.4: Trả về thêm thông tin user trong BookingResource" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -215,6 +215,7 @@
       <workItem from="1747849678039" duration="2098000" />
       <workItem from="1747853164418" duration="1154000" />
       <workItem from="1747923443613" duration="1150000" />
+      <workItem from="1747928535519" duration="637000" />
     </task>
     <task id="LOCAL-00001" summary="v2.0: lấy ra các khung giờ đã được đặt">
       <option name="closed" value="true" />
@@ -248,7 +249,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747923978573</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="v2.4: Trả về thêm thông tin user trong BookingResource">
+      <option name="closed" value="true" />
+      <created>1747928661238</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1747928661238</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,6 +268,7 @@
     <MESSAGE value="v2.1: Cap nhat booking, lay nhung slot da duoc dat, Admin update gia trong tung khung gio" />
     <MESSAGE value="v2.2: Thêm, sửa sân và thông kê doanh thu từng sân" />
     <MESSAGE value="v2.3: Lấy giá sân theo từng khung giờ trong tuần, thống kê một sân (lấy ra hoá đơn)" />
-    <option name="LAST_COMMIT_MESSAGE" value="v2.3: Lấy giá sân theo từng khung giờ trong tuần, thống kê một sân (lấy ra hoá đơn)" />
+    <MESSAGE value="v2.4: Trả về thêm thông tin user trong BookingResource" />
+    <option name="LAST_COMMIT_MESSAGE" value="v2.4: Trả về thêm thông tin user trong BookingResource" />
   </component>
 </project>

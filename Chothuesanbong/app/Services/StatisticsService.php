@@ -33,7 +33,12 @@ class StatisticsService
     {
         $bookings = $this->bookingRepository->getBookingsWithReceiptsFiltered($filters);
 
-        $totalRevenue = $bookings->sum(fn($booking) => $booking->receipt->total_price);
+        $totalRevenue = $bookings->sum(function ($booking) {
+            if ($booking->receipt->is_fully_paid) {
+                return $booking->receipt->total_price;
+            }
+            return $booking->receipt->deposit_price;
+        });
 
         return [
             'total_revenue' => $totalRevenue,
