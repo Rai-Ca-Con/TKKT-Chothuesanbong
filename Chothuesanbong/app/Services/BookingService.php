@@ -169,12 +169,13 @@ class BookingService
         }
 
         // Cập nhật trạng thái hóa đơn liên quan (nếu có)
-        $receipt = $this->receiptRepository->findByBookingId($id);
-        if ($receipt) {
-            $this->receiptRepository->updateStatus($receipt->id, 'cancelled');
-        }
+//        $receipt = $this->receiptRepository->findByBookingId($id);
+//        if ($receipt) {
+//            $this->receiptRepository->updateStatus($receipt->id, 'cancelled');
+//        }
+        return $this->bookingRepository->cancelByUser($id);
 
-        return $receipt;
+//        return $receipt;
     }
 
     public function getBookedTimeSlots($fieldId, $date)

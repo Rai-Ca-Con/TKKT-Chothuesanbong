@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('booking_schedule', function (Blueprint $table) {
-            $table->char('id', 36)->primary(); // Dùng char cho ID (UUID)
-            $table->char('user_id', 36); // Khóa ngoại tới bảng users (UUID)
-            $table->char('field_id', 36); // Khóa ngoại tới bảng fields (UUID)
-            $table->dateTime('date_start'); // Thời gian bắt đầu
-            $table->dateTime('date_end');   // Thời gian kết thúc
+            $table->char('id', 36)->primary();
+            $table->char('user_id', 36);
+            $table->char('field_id', 36);
+            $table->enum('booking_status', ['active', 'cancelled_by_user'])->default('active');
+            $table->dateTime('date_start');
+            $table->dateTime('date_end');
             $table->timestamps();
             $table->softDeletes();
         });

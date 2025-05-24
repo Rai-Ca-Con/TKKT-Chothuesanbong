@@ -182,5 +182,12 @@ class BookingRepository
         return $query->get();
     }
 
+    public function cancelByUser($bookingId)
+    {
+        return $this->model
+            ->where('id', $bookingId)
+            ->update(['booking_status' => 'cancelled_by_user']);
+    }
+
 
 }

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="803e2141-ee6c-4815-9a18-408aa138f923" name="Changes" comment="v2.4: Trả về thêm thông tin user trong BookingResource" />
+    <list default="true" id="803e2141-ee6c-4815-9a18-408aa138f923" name="Changes" comment="v2.5: Fix lỗi tổng tiền trong thống kê một sân" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -171,7 +171,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;atus__dev&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/TKKT-Chothuesanbong/Chothuesanbong/routes&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/TKKT-Chothuesanbong/Chothuesanbong/app/Services&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -182,8 +182,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\routes" />
       <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\app\Services" />
+      <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\routes" />
       <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\app\Repositories" />
       <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\app\Http\Controllers" />
       <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\database\migrations" />
@@ -216,6 +216,7 @@
       <workItem from="1747853164418" duration="1154000" />
       <workItem from="1747923443613" duration="1150000" />
       <workItem from="1747928535519" duration="637000" />
+      <workItem from="1748024628787" duration="189000" />
     </task>
     <task id="LOCAL-00001" summary="v2.0: lấy ra các khung giờ đã được đặt">
       <option name="closed" value="true" />
@@ -257,7 +258,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747928661238</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="v2.5: Fix lỗi tổng tiền trong thống kê một sân">
+      <option name="closed" value="true" />
+      <created>1748024780800</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748024780800</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,6 +278,7 @@
     <MESSAGE value="v2.2: Thêm, sửa sân và thông kê doanh thu từng sân" />
     <MESSAGE value="v2.3: Lấy giá sân theo từng khung giờ trong tuần, thống kê một sân (lấy ra hoá đơn)" />
     <MESSAGE value="v2.4: Trả về thêm thông tin user trong BookingResource" />
-    <option name="LAST_COMMIT_MESSAGE" value="v2.4: Trả về thêm thông tin user trong BookingResource" />
+    <MESSAGE value="v2.5: Fix lỗi tổng tiền trong thống kê một sân" />
+    <option name="LAST_COMMIT_MESSAGE" value="v2.5: Fix lỗi tổng tiền trong thống kê một sân" />
   </component>
 </project>

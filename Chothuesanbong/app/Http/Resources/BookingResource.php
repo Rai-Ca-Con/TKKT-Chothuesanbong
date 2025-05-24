@@ -16,6 +16,7 @@ class BookingResource extends JsonResource
     {
         return [
             'id'         => $this->id,
+            'booking_status' => $this->booking_status,
             'user'       => $this->whenLoaded('user', function () {
                 return [
                     'id'           => $this->user->id,

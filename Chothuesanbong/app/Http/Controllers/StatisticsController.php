@@ -53,7 +53,7 @@ class StatisticsController extends Controller
             return response()->json(['message' => 'Vui lòng cung cấp start_date và end_date'], 422);
         }
 
-        $revenues = $this->statisticsService->getRevenueByFieldInRange($start, $end);
+//        $revenues = $this->statisticsService->getRevenueByFieldInRange($start, $end);
         return APIResponse::success(ReceiptResource::collection($this->statisticsService->getRevenueByFieldInRange($start, $end)));
 
 //        return response()->json($revenues);
