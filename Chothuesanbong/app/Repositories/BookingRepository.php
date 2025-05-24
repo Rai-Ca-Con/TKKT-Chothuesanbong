@@ -35,7 +35,9 @@ class BookingRepository
 
     public function findByFieldAndDate($fieldId, $dateStart, $dateEnd)
     {
-        return $this->model->where('field_id', $fieldId)
+        return $this->model
+            ->where('field_id', $fieldId)
+            ->where('booking_status', '!=', 'cancelled_by_user') // bỏ các booking bị huỷ
             ->where(function ($query) use ($dateStart, $dateEnd) {
                 $query->where('date_start', '<', $dateEnd)
                     ->where('date_end', '>', $dateStart);
@@ -114,7 +116,8 @@ class BookingRepository
     {
         $query = $this->model
             ->whereBetween('date_start', [$startOfWeek, $endOfWeek])
-            ->with('field:id,name') // assuming you have a relation bookingSchedule->field
+            ->where('booking_status', '!=', 'cancelled_by_user') // <-- loại bỏ các booking bị huỷ
+            ->with('field:id,name')
             ->select('id', 'field_id', 'date_start', 'date_end');
 
         if ($fieldId) {
