@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="803e2141-ee6c-4815-9a18-408aa138f923" name="Changes" comment="v2.6: Fix thống kê trong trường hợp huỷ khi đã thanh toán cọc" />
+    <list default="true" id="803e2141-ee6c-4815-9a18-408aa138f923" name="Changes" comment="v2.7: Cho phép người khác booking nếu như đã huỷ đặt sân trong trường hợp đã thanh toán cọc">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chothuesanbong/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/app/Providers/RouteServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chothuesanbong/database/seeders/FieldSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/Chothuesanbong/database/seeders/FieldSeeder.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -171,7 +175,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;atus__dev&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/TKKT-Chothuesanbong/Chothuesanbong/database/migrations&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/TKKT-Chothuesanbong/Chothuesanbong&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -182,11 +186,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong" />
       <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\database\migrations" />
       <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\app\Services" />
       <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\routes" />
       <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\app\Repositories" />
-      <recent name="F:\TKKT-Chothuesanbong\Chothuesanbong\app\Http\Controllers" />
     </key>
   </component>
   <component name="RunManager">
@@ -218,6 +222,11 @@
       <workItem from="1747928535519" duration="637000" />
       <workItem from="1748024628787" duration="189000" />
       <workItem from="1748088240985" duration="278000" />
+      <workItem from="1748096436742" duration="201000" />
+      <workItem from="1748251592799" duration="65000" />
+      <workItem from="1748251668500" duration="102000" />
+      <workItem from="1748251977588" duration="3494000" />
+      <workItem from="1748266872865" duration="3944000" />
     </task>
     <task id="LOCAL-00001" summary="v2.0: lấy ra các khung giờ đã được đặt">
       <option name="closed" value="true" />
@@ -275,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748088500185</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="v2.7: Cho phép người khác booking nếu như đã huỷ đặt sân trong trường hợp đã thanh toán cọc">
+      <option name="closed" value="true" />
+      <created>1748096512569</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748096512569</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -289,6 +306,7 @@
     <MESSAGE value="v2.4: Trả về thêm thông tin user trong BookingResource" />
     <MESSAGE value="v2.5: Fix lỗi tổng tiền trong thống kê một sân" />
     <MESSAGE value="v2.6: Fix thống kê trong trường hợp huỷ khi đã thanh toán cọc" />
-    <option name="LAST_COMMIT_MESSAGE" value="v2.6: Fix thống kê trong trường hợp huỷ khi đã thanh toán cọc" />
+    <MESSAGE value="v2.7: Cho phép người khác booking nếu như đã huỷ đặt sân trong trường hợp đã thanh toán cọc" />
+    <option name="LAST_COMMIT_MESSAGE" value="v2.7: Cho phép người khác booking nếu như đã huỷ đặt sân trong trường hợp đã thanh toán cọc" />
   </component>
 </project>
